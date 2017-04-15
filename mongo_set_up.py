@@ -1,0 +1,1 @@
+db.credentials.createIndex({'team_id':1},{unique: true})
