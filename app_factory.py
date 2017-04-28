@@ -18,6 +18,7 @@ def create_app():
 	logger.info("  - CLIENT_SECRET : " + os.environ.get("CLIENT_SECRET"))
 	logger.info("  - VERIFICATION_TOKEN : " + os.environ.get("VERIFICATION_TOKEN"))
 	logger.info("  - MONGODB_URI : " + os.environ.get("MONGODB_URI"))
+	logger.info("  - APP_BASE_URL : " + os.environ.get("APP_BASE_URL"))
 
 	app.config['MONGO_URI'] = os.environ.get("MONGODB_URI")
 	

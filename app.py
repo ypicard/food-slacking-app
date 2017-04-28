@@ -10,7 +10,7 @@ import urlparse
 import frichti_api
 
 food_slacking_bot = bot.FoodSlackingBot()
-slack = food_slacking_bot.client
+# slack = food_slacking_bot.client
 
 app = create_app()
 
@@ -126,6 +126,13 @@ def reacts():
         response = food_slacking_bot.ask(provider, 'propositions', category)
 
     return jsonify(response)
+
+@app.route('/send_daily_notifcation', methods=['GET'])
+def send_daily_notification():
+    # This route should be called once a day to post a message to all channels of each team to remind them of the bot's existence !
+    print("/send_daily_notifcation called")
+    return ('Succesfully sent daily notifications', 204)
+
 
 
 if __name__ == '__main__':

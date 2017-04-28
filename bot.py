@@ -12,6 +12,8 @@ import copy
 FOOD_CHOICES = ['frichti']
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
+# TODO : Add logs
+# TODO : Understand kitchen id in frichti api
 
 
 class FoodSlackingBot(object):
@@ -159,7 +161,7 @@ class FoodSlackingBot(object):
         #         }
         #     ]
         # }
-
+        pprint(propositions)
         pluralized_category = propositions[0]['category_label'] if propositions[0][
             'category_label'].strip()[-1] == 's' else propositions[0]['category_label'] + 's'
         response = {
@@ -207,6 +209,8 @@ class FoodSlackingBot(object):
     def ask(self, provider, query, param1=None):
         response = "Should never happen ----"
         if provider == 'frichti':
+            pprint(query)
+            pprint(param1)
             response = ask_frichti(query, param1)
             if query == 'menu_categories':
                 response = self.format_menu_categories(provider, response)

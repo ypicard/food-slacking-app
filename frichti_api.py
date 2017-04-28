@@ -16,7 +16,8 @@ MENUS_DIRECTORY = './menus/'
 RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + 'raw/'
 CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + 'custom/'
 
-FRICHTI_REQUEST_URL = "https://api-gateway.frichti.co/kitchens/1/menu"
+FRICHTI_REQUEST_URL = "https://api-gateway.frichti.co/kitchens/7/menu"
+# TODO : The kitchen id (number before menu iun url) seems to change the availabilities of some items : understand why
 FRICHTI_BASE_URL = "https://www.frichti.co"
 
 COMMAND_LIST = ['list']
@@ -75,10 +76,11 @@ def format_raw_menu(raw_menu):
     for item in raw_menu['menu']:
         meal_category = item['name']
         meal_category_label = item['label'].capitalize()
-        custom_menu['meal_categories'].append(
-            {'tag': meal_category,
-             'label': meal_category_label})
-        custom_menu['menu'][meal_category] = []
+
+        new_meal_category_item = {'tag': meal_category,
+                                  'label': meal_category_label}
+
+        new_category_items = []
         for collect in item['collects']:
             if 'products' in collect.keys():
                 old_item = collect['products']
@@ -96,7 +98,10 @@ def format_raw_menu(raw_menu):
                         'id': old_item['images'][0]['id']
                     }
                 }
-                custom_menu['menu'][meal_category].append(new_item)
+                new_category_items.append(new_item)
+        if new_category_items:
+            custom_menu['meal_categories'].append(new_meal_category_item)
+            custom_menu['menu'][meal_category] = new_category_items
 
     # Sort categories by alphabetical order
     custom_menu['meal_categories'] = sorted(
