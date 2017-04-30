@@ -8,31 +8,20 @@ from pprint import pprint
 from flask import request, make_response, render_template, jsonify
 import urlparse
 import frichti_api
+import logging
+
+# Instantiate logger instance
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 food_slacking_bot = bot.FoodSlackingBot()
-# slack = food_slacking_bot.client
-
 app = create_app()
 
 
 def _event_handler(event_type, slack_event):
-    """
-    A helper function that routes events from Slack to our Bot
-    by event type and subtype.
+    # A helper function that routes events from Slack to our Bot by event type
+    # and subtype.
 
-    Parameters
-    ----------
-    event_type : str
-        type of event recieved from Slack
-    slack_event : dict
-        JSON response from a Slack reaction event
-
-    Returns
-    ----------
-    obj
-        Response object with 200 - ok or 500 - No Event Handler error
-
-    """
     team = slack_event["team_id"]
     food_slacking_bot.authToCorrectTeam(team)
 
@@ -117,22 +106,19 @@ def reacts():
     callback_id = payload['callback_id']
     actions = payload['actions']
 
+    logging.info("/reacts with :\n  -callback_id=" +
+                 callback_id + "\n  -value=" + actions[0]['value'])
+
     # Rethink this process
     if callback_id == 'food_provider_selection':
         food_provider_choice = actions[0]['value']
-        response = food_slacking_bot.ask(food_provider_choice, 'menu_categories')
+        response = food_slacking_bot.ask(
+            food_provider_choice, 'menu_categories')
     elif callback_id == 'menu_category_selection':
-        provider, category =   actions[0]['value'].split('/')
+        provider, category = actions[0]['value'].split('/')
         response = food_slacking_bot.ask(provider, 'propositions', category)
 
     return jsonify(response)
-
-@app.route('/send_daily_notifcation', methods=['GET'])
-def send_daily_notification():
-    # This route should be called once a day to post a message to all channels of each team to remind them of the bot's existence !
-    print("/send_daily_notifcation called")
-    return ('Succesfully sent daily notifications', 204)
-
 
 
 if __name__ == '__main__':

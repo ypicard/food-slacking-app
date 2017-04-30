@@ -17,10 +17,12 @@ logger = logging.getLogger(__name__)
 logging.info("Daily task called : send_daily_notifications")
 
 MONGODB_URL = os.environ.get("MONGODB_URI")
-logging.info("Connecting to database : " + MONGODB_URL)
+MONGODB_NAME = os.environ.get("MONGODB_NAME")
+
+logging.info("Connecting to database :\n  - MONGODB_URL=" +
+             MONGODB_URL + "\n  - MONGODB_NAME=" + MONGODB_NAME)
 mongo = MongoClient(MONGODB_URL)
-# Some problem might occur here, set this as env variable maybe
-db = mongo.local_food_slacking
+db = mongo[MONGODB_NAME]
 
 all_credentials = db.credentials.find()
 
@@ -62,5 +64,6 @@ for cred in all_credentials:
                        'id'], attachments=response,  as_user=True)
         nb_notifications = nb_notifications + 1
 
-logging.info("DONE : sent a total of " + str(nb_notifications) + " notifications")
+logging.info("DONE : sent a total of " +
+             str(nb_notifications) + " notifications")
 logging.info("End of task : send_daily_notifications")

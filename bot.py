@@ -8,11 +8,15 @@ from pprint import pprint
 from frichti_api import *
 import frichti_api
 import copy
+import logging
+
+# Instantiate logger instance
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 FOOD_CHOICES = ['frichti']
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
-# TODO : Add logs
 # TODO : Understand kitchen id in frichti api
 
 
@@ -62,10 +66,13 @@ class FoodSlackingBot(object):
         # To keep track of authorized teams and their associated OAuth tokens,
         # we will save the team ID and bot tokens to the global
         # authed_teams object
+        logging.info("Saving new credentials to database :\n  - team_id: " +
+                     auth_response["team_id"] + "\n  - team_name: " + auth_response["team_name"])
         mongo.db.credentials.update({
             'team_id': auth_response["team_id"]
         }, {
             '$set': {'team_id': auth_response["team_id"],
+                     'team_name': auth_response["team_name"],
                      'access_token': auth_response["access_token"],
                      'bot_id':  auth_response["bot"]["bot_user_id"],
                      'bot_token': auth_response["bot"]["bot_access_token"]
@@ -77,6 +84,8 @@ class FoodSlackingBot(object):
 
     def authToCorrectTeam(self, team_id):
         team_credentials = mongo.db.credentials.find_one({'team_id': team_id})
+        logger.info("Connecting slack client to :\n  - team_name: " + team_credentials['team_name'] + "\n  - team_id: " +
+                    team_id)
         self.client = SlackClient(team_credentials['bot_token'])
         self.id = team_credentials['bot_id']
 
@@ -84,6 +93,7 @@ class FoodSlackingBot(object):
         return '<@' + self.id + '>'
 
     def handle_command(self, team, channel, message):
+        logger.info("postMessage : display provider selection buttons")
         instructions = message.split()
         response = [
             {
@@ -108,12 +118,15 @@ class FoodSlackingBot(object):
         # Returns a replacement response to replace the active Slack message,
         # and 'other_responses' which will appear as new messages
 
+        # TODO : Define a model structure for categories param
+
+        provider_URLS = self.get_provider_URLS(provider)
         response = {
             'text': 'Choisissez une catégorie pour connaitre ses choix :',
             'attachments': [{
                 "author_name": provider.title(),
-                "author_link": frichti_api.FRICHTI_BASE_URL,
-                "author_icon": frichti_api.FRICHTI_LOGO
+                "author_link": provider_URLS['BASE_URL'],
+                "author_icon": provider_URLS['LOGO_URL']
             }]
         }
 
@@ -144,6 +157,8 @@ class FoodSlackingBot(object):
         # Returns a replacement response to replace the active Slack message,
         # and 'other_responses' which will appear as new messages
 
+        # TODO : Define a model structure for propositions param
+
         # response = {
         #     "text": "Liste des boissons Frichti : :",
         #     "attachments": [
@@ -161,14 +176,15 @@ class FoodSlackingBot(object):
         #         }
         #     ]
         # }
-        pprint(propositions)
+        provider_URLS = self.get_provider_URLS(provider)
+
         pluralized_category = propositions[0]['category_label'] if propositions[0][
             'category_label'].strip()[-1] == 's' else propositions[0]['category_label'] + 's'
         response = {
             "attachments": [{
                 "author_name": provider.title() + " : " + pluralized_category,
-                "author_link": frichti_api.FRICHTI_BASE_URL,
-                "author_icon": frichti_api.FRICHTI_LOGO
+                "author_link": provider_URLS['BASE_URL'],
+                "author_icon": provider_URLS['LOGO_URL']
             }]
         }
 
@@ -194,8 +210,8 @@ class FoodSlackingBot(object):
             new_attachment = copy.deepcopy(attachment_template)
 
             new_attachment['title'] = proposition['title']
-            new_attachment['title_link'] = frichti_api.get_product_url(proposition[
-                                                                       'productId'])
+            new_attachment[
+                'title_link'] = provider_URLS['PRODUCT_BASE_URL'] + proposition['productId']
             new_attachment['fields'][0][
                 'value'] = proposition['shortDescription']
             new_attachment['fields'][1][
@@ -206,14 +222,23 @@ class FoodSlackingBot(object):
 
         return response
 
-    def ask(self, provider, query, param1=None):
-        response = "Should never happen ----"
+    def get_provider_URLS(self, provider):
+        # Used to get useful base urls for each provider
         if provider == 'frichti':
-            pprint(query)
-            pprint(param1)
+            return {
+                "BASE_URL": frichti_api.FRICHTI_BASE_URL,
+                "LOGO_URL": frichti_api.FRICHTI_LOGO,
+                "PRODUCT_BASE_URL": frichti_api.FRICHTI_BASE_URL + '/p/'
+            }
+
+    def ask(self, provider, query, param1=None):
+        response = ""
+        if provider == 'frichti':
             response = ask_frichti(query, param1)
             if query == 'menu_categories':
+                logging.info("postMessage: menu_categories for " + provider)
                 response = self.format_menu_categories(provider, response)
             elif query == 'propositions':
+                logging.info("postMessage: propositions for " + provider)
                 response = self.format_propositions(provider, response)
         return response

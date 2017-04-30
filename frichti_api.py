@@ -17,7 +17,8 @@ RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + 'raw/'
 CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + 'custom/'
 
 FRICHTI_REQUEST_URL = "https://api-gateway.frichti.co/kitchens/7/menu"
-# TODO : The kitchen id (number before menu iun url) seems to change the availabilities of some items : understand why
+# TODO : The kitchen id (number before menu iun url) seems to change the
+# availabilities of some items : understand why
 FRICHTI_BASE_URL = "https://www.frichti.co"
 
 COMMAND_LIST = ['list']
@@ -148,10 +149,6 @@ def get_product_url(product_id):
 def get_propositions(selected_category):
     menu = get_todays_data()['menu']
     return [prop for prop in menu[selected_category]]
-    # if selected_category in menu:
-    #     for plat in menu[selected_category]:
-    #         todays_propositions.append(plat)
-    # return todays_propositions
 
 
 def get_todays_categories():
@@ -164,6 +161,7 @@ def get_todays_categories():
 
 
 def ask_frichti(query, param1=None):
+    logger.info("Asking frichti for:\n  - query=%s\n  - param1=%s", query, param1)
     fetch_and_save_todays_menu_if_needed()
     if query == 'menu_categories':
         return get_todays_categories()
