@@ -12,10 +12,10 @@ from pprint import pprint
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-MENUS_DIRECTORY = './menus/'
+MENUS_DIRECTORY = './menus/popchef'
 
-RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/popchef/raw/'
-CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/popchef/custom/'
+RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw'
+CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom'
 
 # Add GET param : ?date=2017-05-01
 POPCHEF_REQUEST_URL = "https://api.eatpopchef.com/api/schedules/next"

@@ -11,17 +11,15 @@ from pprint import pprint
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-MENUS_DIRECTORY = './menus/'
+MENUS_DIRECTORY = './menus/frichti'
 
-RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + 'raw/'
-CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + 'custom/'
+RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw'
+CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom'
 
 FRICHTI_REQUEST_URL = "https://api-gateway.frichti.co/kitchens/7/menu"
 # TODO : The kitchen id (number before menu iun url) seems to change the
 # availabilities of some items : understand why
 FRICHTI_BASE_URL = "https://www.frichti.co"
-
-COMMAND_LIST = ['list']
 
 FRICHTI_LOGO = "https://assets.chooseyourboss.com/companies/logos/000/006/214/square/22922_2_1459442348.png?1488874942"
 
