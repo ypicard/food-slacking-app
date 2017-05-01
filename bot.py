@@ -5,8 +5,8 @@ from slackclient import SlackClient
 from flask import jsonify
 from app_factory import mongo
 from pprint import pprint
-from frichti_api import *
 import frichti_api
+import popchef_api
 import copy
 import logging
 
@@ -14,7 +14,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-FOOD_CHOICES = ['frichti']
+PROVIDER_CHOICES = ['frichti', 'popchef']
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
 # TODO : Understand kitchen id in frichti api
@@ -95,19 +95,22 @@ class FoodSlackingBot(object):
     def handle_command(self, team, channel, message):
         logger.info("postMessage : display provider selection buttons")
         instructions = message.split()
+
+        actions = []
+        for provider in PROVIDER_CHOICES:
+            actions.append({
+                'name': 'choice',
+                'text': provider.capitalize(),
+                        'type': 'button',
+                        'value': provider
+            })
+
         response = [
             {
                 'color': '#36a64f',
                 'pretext': 'Dites moi ce qui vous intéresse le plus aujourd\'hui !',
                 'callback_id': 'food_provider_selection',
-                'actions': [
-                    {
-                        'name': 'choice',
-                        'text': 'Frichti',
-                        'type': 'button',
-                        'value': 'frichti'
-                    }
-                ]
+                'actions': actions
             }
         ]
 
@@ -121,6 +124,18 @@ class FoodSlackingBot(object):
         # TODO : Define a model structure for categories param
 
         provider_URLS = self.get_provider_URLS(provider)
+        if not categories:
+            # If not categories available for this day (holidays for example)
+            response = {
+                        'attachments': [{
+                            'text': "Aucune catégorie disponible aujourd'hui ! Retentez votre chance demain :)",
+                            "author_name": provider.title(),
+                            "author_link": provider_URLS['BASE_URL'],
+                            "author_icon": provider_URLS['LOGO_URL']
+                        }]
+            }
+            return response
+
         response = {
             'text': 'Choisissez une catégorie pour connaitre ses choix :',
             'attachments': [{
@@ -148,9 +163,10 @@ class FoodSlackingBot(object):
             }
             new_attachment['actions'].append(new_action)
 
-            if idx > 0 and idx % 5 == 0:
+            if (idx + 1) % 5 == 0:
                 response['attachments'].append(new_attachment)
                 new_attachment = copy.deepcopy(attachment_template)
+        response['attachments'].append(new_attachment)
         return response
 
     def format_propositions(self, provider, propositions):
@@ -230,11 +246,26 @@ class FoodSlackingBot(object):
                 "LOGO_URL": frichti_api.FRICHTI_LOGO,
                 "PRODUCT_BASE_URL": frichti_api.FRICHTI_BASE_URL + '/p/'
             }
+        elif provider == 'popchef':
+            return {
+                "BASE_URL": popchef_api.POPCHEF_BASE_URL,
+                "LOGO_URL": popchef_api.POPCHEF_LOGO,
+                "PRODUCT_BASE_URL": popchef_api.POPCHEF_BASE_URL + '/p/'
+            }
 
     def ask(self, provider, query, param1=None):
-        response = ""
+        response = "Should never happen !"
         if provider == 'frichti':
-            response = ask_frichti(query, param1)
+            response = frichti_api.ask_frichti(query, param1)
+            if query == 'menu_categories':
+                logging.info("postMessage: menu_categories for " + provider)
+                response = self.format_menu_categories(provider, response)
+            elif query == 'propositions':
+                logging.info("postMessage: propositions for " + provider)
+                response = self.format_propositions(provider, response)
+
+        if provider == 'popchef':
+            response = popchef_api.ask_popchef(query, param1)
             if query == 'menu_categories':
                 logging.info("postMessage: menu_categories for " + provider)
                 response = self.format_menu_categories(provider, response)
