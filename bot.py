@@ -40,6 +40,14 @@ PROVIDER_CHOICES = [{
     'message': 'Allez sur le site !',
     'thumb_url': "http://media.miamiherald.com/static/media/projects/2016/food-apps/search/images/uber-logo-1bb79480e8.png"
 },
+    {
+    'tag': 'foodora',
+    'name': 'Foodora',
+    'has_api': False,
+    'website_url': "https://www.foodora.fr",
+    'message': 'Allez sur le site !',
+    'thumb_url': "https://upload.wikimedia.org/wikipedia/commons/6/66/Foodora_logo_pink.png"
+}
 ]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
@@ -147,7 +155,7 @@ class FoodSlackingBot(object):
                 new_attachment = {
                     "title": provider['name'],
                     "text": provider['website_url'],
-                     "callback_id": "food_provider_selection",
+                    "callback_id": "food_provider_selection",
                     "color": "#36a64f",
                     "thumb_url": provider['thumb_url'],
                     "attachment_type": "default",
