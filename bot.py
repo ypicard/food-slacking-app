@@ -38,7 +38,7 @@ PROVIDER_CHOICES = [{
     'has_api': False,
     'website_url': "https://www.ubereats.com",
     'message': 'Allez sur le site !',
-    'thumb_url': "http://media.miamiherald.com/static/media/projects/2016/food-apps/search/images/uber-logo-1bb79480e8.png"
+    'thumb_url': "http://cdn2.ubergizmo.com/wp-content/uploads/2016/01/ubereats-logo-640x640.jpg"
 },
     {
     'tag': 'foodora',
@@ -46,7 +46,7 @@ PROVIDER_CHOICES = [{
     'has_api': False,
     'website_url': "https://www.foodora.fr",
     'message': 'Allez sur le site !',
-    'thumb_url': "https://upload.wikimedia.org/wikipedia/commons/6/66/Foodora_logo_pink.png"
+    'thumb_url': "http://www.chez-dang.com/wp-content/uploads/2017/02/foodora_web.png"
 },
  {
     'tag': 'deliveroo',
