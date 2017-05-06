@@ -47,7 +47,18 @@ PROVIDER_CHOICES = [{
     'website_url': "https://www.foodora.fr",
     'message': 'Allez sur le site !',
     'thumb_url': "https://upload.wikimedia.org/wikipedia/commons/6/66/Foodora_logo_pink.png"
+},
+ {
+    'tag': 'deliveroo',
+    'name': 'Deliveroo',
+    'has_api': False,
+    'website_url': "https://deliveroo.fr/fr/",
+    'message': 'Allez sur le site !',
+    'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
 }
+
+
+
 ]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
