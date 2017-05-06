@@ -60,11 +60,7 @@ PROVIDER_CHOICES = [{
     'website_url': "https://deliveroo.fr/fr/",
     'message': 'Allez sur le site !',
     'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
-}
-
-
-
-]
+}]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
 # TODO : Understand kitchen id in frichti api
