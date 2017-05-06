@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 PROVIDER_CHOICES = [{
     'tag': 'frichti',
     'name': 'Frichti',
+    'color':'#f7e77a',
     'has_api': True,
     'message': 'Voir le menu !',
     'thumb_url': frichti_api.FRICHTI_LOGO
@@ -28,6 +29,7 @@ PROVIDER_CHOICES = [{
     {
     'tag': 'popchef',
     'name': 'Popchef',
+    'color':'#1ec28e',
     'has_api': True,
     'message': 'Voir le menu !',
     'thumb_url': popchef_api.POPCHEF_LOGO
@@ -35,6 +37,7 @@ PROVIDER_CHOICES = [{
     {
     'tag': 'ubereats',
     'name': 'UberEats',
+    'color':'#1c95a5',
     'has_api': False,
     'website_url': "https://www.ubereats.com",
     'message': 'Allez sur le site !',
@@ -43,6 +46,7 @@ PROVIDER_CHOICES = [{
     {
     'tag': 'foodora',
     'name': 'Foodora',
+    'color': '#d51965',
     'has_api': False,
     'website_url': "https://www.foodora.fr",
     'message': 'Allez sur le site !',
@@ -51,6 +55,7 @@ PROVIDER_CHOICES = [{
  {
     'tag': 'deliveroo',
     'name': 'Deliveroo',
+    'color': '#21ccbe',
     'has_api': False,
     'website_url': "https://deliveroo.fr/fr/",
     'message': 'Allez sur le site !',
@@ -151,7 +156,7 @@ class FoodSlackingBot(object):
                 new_attachment = {
                     "title": provider['name'],
                     "callback_id": "food_provider_selection",
-                    "color": "#36a64f",
+                    "color": provider['color'],
                     "thumb_url": provider['thumb_url'],
                     "attachment_type": "default",
                     "actions": [{
@@ -167,7 +172,7 @@ class FoodSlackingBot(object):
                     "title": provider['name'],
                     "text": provider['website_url'],
                     "callback_id": "food_provider_selection",
-                    "color": "#36a64f",
+                    "color": provider['color'],
                     "thumb_url": provider['thumb_url'],
                     "attachment_type": "default",
                 }
