@@ -3,18 +3,44 @@
 import os
 from slackclient import SlackClient
 from flask import jsonify
+import json
 from app_factory import mongo
 from pprint import pprint
 import frichti_api
 import popchef_api
+import urllib
 import copy
 import logging
+from random import shuffle
+
 
 # Instantiate logger instance
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-PROVIDER_CHOICES = ['frichti', 'popchef']
+PROVIDER_CHOICES = [{
+    'tag': 'frichti',
+    'name': 'Frichti',
+    'has_api': True,
+    'message': 'Voir le menu !',
+    'thumb_url': frichti_api.FRICHTI_LOGO
+},
+    {
+    'tag': 'popchef',
+    'name': 'Popchef',
+    'has_api': True,
+    'message': 'Voir le menu !',
+    'thumb_url': popchef_api.POPCHEF_LOGO
+},
+    {
+    'tag': 'ubereats',
+    'name': 'UberEats',
+    'has_api': False,
+    'website_url': "https://www.ubereats.com",
+    'message': 'Allez sur le site !',
+    'thumb_url': "http://media.miamiherald.com/static/media/projects/2016/food-apps/search/images/uber-logo-1bb79480e8.png"
+},
+]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
 # TODO : Understand kitchen id in frichti api
@@ -96,26 +122,44 @@ class FoodSlackingBot(object):
         logger.info("postMessage : display provider selection buttons")
         instructions = message.split()
 
-        actions = []
-        for provider in PROVIDER_CHOICES:
-            actions.append({
-                'name': 'choice',
-                'text': provider.capitalize(),
-                        'type': 'button',
-                        'value': provider
-            })
+        text = "Chez qui voulez-vous commander aujourd'hui ?"
 
-        response = [
-            {
-                'color': '#36a64f',
-                'pretext': 'Dites moi ce qui vous intéresse le plus aujourd\'hui !',
-                'callback_id': 'food_provider_selection',
-                'actions': actions
-            }
-        ]
+        # Build attachments
+        attachments = []
+        shuffle(PROVIDER_CHOICES)  # Randomize order
+        for provider in PROVIDER_CHOICES:
+            if provider['has_api']:
+                new_attachment = {
+                    "title": provider['name'],
+                    "callback_id": "food_provider_selection",
+                    "color": "#36a64f",
+                    "thumb_url": provider['thumb_url'],
+                    "attachment_type": "default",
+                    "actions": [{
+                        "name": "choice",
+                        "text": provider['message'],
+                        "type": "button",
+                        "value": provider['tag']
+                    }]
+                }
+            else:
+                # If no API, just put a link to the website !
+                new_attachment = {
+                    "title": provider['name'],
+                    "text": provider['website_url'],
+                     "callback_id": "food_provider_selection",
+                    "color": "#36a64f",
+                    "thumb_url": provider['thumb_url'],
+                    "attachment_type": "default",
+                }
+            attachments.append(new_attachment)
+
+        attachments = json.dumps(attachments)
 
         self.client.api_call("chat.postMessage", token=team, channel=channel,
-                             attachments=response, as_user=True)
+                             text=text,
+                             attachments=attachments,
+                             as_user=True)
 
     def format_menu_categories(self, provider, categories):
         # Returns a replacement response to replace the active Slack message,
@@ -127,12 +171,12 @@ class FoodSlackingBot(object):
         if not categories:
             # If not categories available for this day (holidays for example)
             response = {
-                        'attachments': [{
-                            'text': "Aucune catégorie disponible aujourd'hui ! Retentez votre chance demain :)",
+                'attachments': [{
+                    'text': "Aucune catégorie disponible aujourd'hui ! Retentez votre chance demain :)",
                             "author_name": provider.title(),
                             "author_link": provider_URLS['BASE_URL'],
                             "author_icon": provider_URLS['LOGO_URL']
-                        }]
+                }]
             }
             return response
 
