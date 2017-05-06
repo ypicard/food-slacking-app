@@ -7,6 +7,9 @@ I created this simple slack app/bot to get a daily reminder to check what's for 
 At the moment, the only supported providers are :
   - Frichti
   - Popchef
+  - Uber Eats
+  - Deliveroo
+  - Foodora 
 
 New ones will come quickly, be assured :)
 
@@ -16,13 +19,13 @@ Just follow the instructions provided by the **Add to Slack** button :
 
 # SCREENSHOTS
 ![Screenshot 1](/images/readme-providers.png?raw=true "Choose your daily food provider !")
-![Screenshot 2](/images/readme-categories.png?raw=true "Frichti example : menu category selection")
-![Screenshot 3](/images/readme-propositions.png?raw=true "Frichti example : propositions for the 'Plats' category")
+![Screenshot 2](/images/readme-propositions.png?raw=true "Frichti example : propositions for the 'Plats' category")
 
 # New Features!
 
   - **May 1st 2017** : First "official" release, with basic functionnalities (only Frichti supported, and a daily task called everyday)
   - **May 2nd 2017** : Add Popchef support
+  - **May 6th 2017** : Add UberEats, Deliveroo, Foodora (and more generally, add support for non-api based providers)
 
 ### Development
 
@@ -30,9 +33,8 @@ If you want to help me grow this bot, ping me and I'll do a quick guide on how t
 
 ### Todos
 
- - Add more food providers
  - Add a return button in each menu
- - Add Foodora, Ubereats, Deliveroo, Chaud chaud chaud, Pickles
+ - Add Chaud chaud chaud, Pickles, FoodCheri
 
 License
 ----
