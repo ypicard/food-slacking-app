@@ -42,15 +42,15 @@ def _event_handler(event_type, slack_event):
     return make_response(message, 200, {"X-Slack-No-Retry": 1})
 
 
-@app.route("/install", methods=["GET"])
-def pre_install():
+@app.route("/", methods=["GET"])
+def home():
     """This route renders the installation page with 'Add to Slack' button."""
     # Since we've set the client ID and scope on our Bot object, we can change
     # them more easily while we're developing our app.
 
     client_id = food_slacking_bot.oauth["client_id"]
     scope = food_slacking_bot.oauth["scope"]
-    return render_template("install.html", client_id=client_id, scope=scope)
+    return render_template("home.html", client_id=client_id, scope=scope)
 
 
 @app.route("/thanks", methods=["GET", "POST"])
