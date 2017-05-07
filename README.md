@@ -2,6 +2,8 @@
 
 [![N|Solid](https://platform.slack-edge.com/img/add_to_slack@2x.png)](https://slack.com/oauth/authorize?&client_id=158493540211.158495716179&scope=bot)
 
+Website : https://food-slacking.herokuapp.com
+
 I created this simple slack app/bot to get a daily reminder to check what's for lunch on the different food providers' websites.
 
 At the moment, the only supported providers are :
@@ -26,6 +28,7 @@ Just follow the instructions provided by the **Add to Slack** button :
   - **May 1st 2017** : First "official" release, with basic functionnalities (only Frichti supported, and a daily task called everyday)
   - **May 2nd 2017** : Add Popchef support
   - **May 6th 2017** : Add UberEats, Deliveroo, Foodora (and more generally, add support for non-api based providers)
+  - **May 7th 2017** : Build a nice website with a nice UI : https://food-slacking.herokuapp.com
 
 ### Development
 
