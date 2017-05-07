@@ -1,12 +1,80 @@
 <!doctype html>
-<title>Install Food Slacking</title>
-<br>
-<br>
-<br>
-<center>
-    <h1>Click the button to install Food Slacking Bot</h1>
-    <div>PROD VERSION : </div>
-    <a href="https://slack.com/oauth/authorize?&client_id=158493540211.158495716179&scope=bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-    <div>DEV VERSION : </div>
-    <a href="https://slack.com/oauth/authorize?&client_id=158493540211.174739823445&scope=bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-</center>
+
+<head>
+    <title>Food Slacking</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row parallax" id="first-row">
+            <div class="col-sm-6 col-sm-offset-1 white-text">
+                <h1>Welcome to Food Slacking !</h1>
+                <h2>An easy way to help you decide what you'll have for lunch today at work !</h2>
+                <img src="static/images/presentation.gif" id="presentation-gif" />
+                <div class="text-center" style="width: 100%; height: 100%; padding:20px;">
+                    <a href="https://slack.com/oauth/authorize?&client_id=158493540211.158495716179&scope=bot"><img alt="Add to Slack" width="55%" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+                </div>
+                <ul id="functionnality-list">
+                    <li>Know in a flash what each food provider has for lunch today with this simple Slack bot !</li>
+                    <li>Get daily reminders to order your lunch right in time !</li>
+                    <li>Pretty much as interactive as it can get</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row parallax" id="providers-row">
+            <div class="col-md-6 col-sm-offset-6 white-text">
+                <h1>Supported providers</h1>
+                <h2>New ones are added every now and then !</h2>
+                <div style="text-align:center;">
+                    <div class="col-sm-6">
+                        <img src="static/images/frichti.png" class="provider" />
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="static/images/popchef.png" class="provider" style="background-color: white;" />
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="static/images/deliveroo.png" class="provider" />
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="static/images/ubereats.png" class="provider" />
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="static/images/foodora.png" class="provider" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row parallax white-text" id="instructions-row">
+            <div class="col-md-8 col-md-offset-2 text-center white-text">
+                <h1>Installation / How to use</h1>
+                <h3>To install the bot, just follow the instructions here : <a href="https://slack.com/oauth/authorize?&client_id=158493540211.158495716179&scope=bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a></h3>
+                <h3>Add it to any channels you want, and just mention his name !</h3>
+                <div style="width:100%; height:100%;">
+                    <img src="static/images/bot-mention.png" width="100%" style="border-radius: 25px; padding:10px;" />
+                </div>
+                <h3>It doesn't get any simpler !</h3>
+            </div>
+        </div>
+        <div class="row parallax white-text" id="contact-row">
+            <div class="col-md-6 white-text">
+                <h1>Contact / Support</h1>
+                <h3>For any request, may it concern feedback, bug report, support or anything that may come up to your mind :</h3>
+                <div class="text-center">
+                    <a id="contact-me" class="btn btn-default" href="mailto:lewarthog@hotmail.com"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> Contact me ! <i class="fa fa-paper-plane" aria-hidden="true"></i></h2></a>
+                </div>
+                <h3>This app doens't collect or use any of your personnal data, which nowadays is pretty uncommon</h3>
+            </div>
+        </div>
+        <div class="row parallax white-text text-center" id="github-row">
+            <h2>And of course, if you're interested into helping me grow this bot, check out the Github !</h2>
+            <a class="btn btn-default" href="https://github.com/ypicard/food-slacking-app" style="margin: 10px;"><img src="static/images/github.png" width="80" /></a>
+            <p style="padding-top:30px">Disclaimer : I do not claim any rights or make any money out of this app, it was just (and still is !) a fun project to do  😉 </p>
+        </div>
+    </div>
+</body>
+<!--   <div>DEV VERSION : </div>
+            <a href="https://slack.com/oauth/authorize?&client_id=158493540211.174739823445&scope=bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a> -->

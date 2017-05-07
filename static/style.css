@@ -1,0 +1,73 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+#first-row {
+    background-image: url("images/ingredients-bg.jpg");
+    padding: 40px 0 40px 0;
+}
+
+#thank-you-page {
+    background-image: url("images/baby-sink.jpg");
+    height: 105vh;
+    text-align: center;	
+    padding-top: 40vh;
+
+}
+
+#presentation-gif {
+    width: 100%;
+    margin: 30px 0 0 0;
+}
+
+#providers-row {
+    padding: 30px 0 30px 0;
+    background-image: url("images/baby-chef.jpg");
+}
+
+#contact-row {
+    background-image: url("images/kitchen-black-and-white.jpg");
+    padding: 40px 0 40px 0;
+}
+
+#instructions-row {
+    background-image: url("images/baby-spaghetti.jpg");
+    padding: 150px 0 150px 0;
+}
+
+#github-row {
+    background-image: url("images/purple-bg.jpg");
+    padding: 40px 0 40px 0;
+}
+
+#functionnality-list {
+    font-size: 24px;
+}
+
+.parallax {
+    /* Set a specific height */
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.white-text {
+    color: white;
+}
+
+.provider {
+    border-radius: 20px;
+    height: 120px;
+    padding: 5px;
+}
+
+#contact-me {
+    border-radius: 10px;
+    border: solid;
+    border-color: white;
+    color: white;
+    padding: 10px;
+    background: none;
+}

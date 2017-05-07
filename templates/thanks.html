@@ -1,8 +1,23 @@
 <!doctype html>
-<title>Install Food Slacking</title>
-<br>
-<br>
-<br>
-<center>
-    <h1>Thanks for installing!</h1>
-</center>
+
+<head>
+    <title>Food Slacking</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row parallax white-text" id="thank-you-page">
+            <h1>Thanks for installing !</h1>
+            <a class="btn btn-default" href="/install" style="border-radius: 10px;
+    border: solid;
+    border-color: white;
+    color: white;
+    padding: 30px;
+    background: none;
+    font-size: 24px;">Go to home page</a>
+        </div>
+</body>
