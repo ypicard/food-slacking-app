@@ -4,15 +4,14 @@ body {
 
 #first-row {
     background-image: url("images/ingredients-bg.jpg");
-    padding: 40px 0 40px 0;
+    padding: 40px 0 100px 0;
 }
 
 #thank-you-page {
     background-image: url("images/baby-sink.jpg");
     height: 105vh;
-    text-align: center;	
+    text-align: center;
     padding-top: 40vh;
-
 }
 
 #presentation-gif {
@@ -21,23 +20,23 @@ body {
 }
 
 #providers-row {
-    padding: 30px 0 30px 0;
+    padding: 100px 0 100px 0;
     background-image: url("images/baby-chef.jpg");
 }
 
 #contact-row {
     background-image: url("images/kitchen-black-and-white.jpg");
-    padding: 40px 0 40px 0;
+    padding: 100px 0 100px 0;
 }
 
 #instructions-row {
     background-image: url("images/baby-spaghetti.jpg");
-    padding: 150px 0 150px 0;
+    padding: 100px 0 100px 0;
 }
 
 #github-row {
     background-image: url("images/purple-bg.jpg");
-    padding: 40px 0 40px 0;
+    padding: 120px 0 120px 0;
 }
 
 #functionnality-list {
