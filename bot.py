@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 PROVIDER_CHOICES = [{
     'tag': 'frichti',
     'name': 'Frichti',
-    'color':'#f7e77a',
+    'color': '#f7e77a',
     'has_api': True,
     'message': 'Voir le menu !',
     'thumb_url': frichti_api.FRICHTI_LOGO
@@ -29,7 +29,7 @@ PROVIDER_CHOICES = [{
     {
     'tag': 'popchef',
     'name': 'Popchef',
-    'color':'#1ec28e',
+    'color': '#1ec28e',
     'has_api': True,
     'message': 'Voir le menu !',
     'thumb_url': popchef_api.POPCHEF_LOGO
@@ -37,7 +37,7 @@ PROVIDER_CHOICES = [{
     {
     'tag': 'ubereats',
     'name': 'UberEats',
-    'color':'#1c95a5',
+    'color': '#1c95a5',
     'has_api': False,
     'website_url': "https://www.ubereats.com",
     'message': 'Allez sur le site !',
@@ -52,7 +52,7 @@ PROVIDER_CHOICES = [{
     'message': 'Allez sur le site !',
     'thumb_url': "http://www.chez-dang.com/wp-content/uploads/2017/02/foodora_web.png"
 },
- {
+    {
     'tag': 'deliveroo',
     'name': 'Deliveroo',
     'color': '#21ccbe',
@@ -138,9 +138,8 @@ class FoodSlackingBot(object):
     def getAtBot(self):
         return '<@' + self.id + '>'
 
-    def handle_command(self, team, channel, message):
+    def display_providers(self, team, channel):
         logger.info("postMessage : display provider selection buttons")
-        instructions = message.split()
 
         text = "Chez qui voulez-vous commander aujourd'hui ?"
 
@@ -180,6 +179,12 @@ class FoodSlackingBot(object):
                              text=text,
                              attachments=attachments,
                              as_user=True)
+
+    def post_message(self, team, channel, message):
+        logger.info("postMessage : " + message)
+
+        self.client.api_call("chat.postMessage", token=team,
+                             channel=channel, text=message, as_user=True)
 
     def format_menu_categories(self, provider, categories):
         # Returns a replacement response to replace the active Slack message,
