@@ -24,21 +24,23 @@ def _event_handler(event_type, slack_event):
 
     team = slack_event["team_id"]
     food_slacking_bot.authToCorrectTeam(team)
-
+    
     # ================ Message Events =============== #
-    if event_type == "message":
-        if 'text' in slack_event['event'] and 'help' in slack_event['event']['text']:
-            channel = slack_event['event']['channel']
-            message = "If you feel lost, don't panic :bomb: ! Just mention my name and let the magic happen :tophat:\n\nIf you'd like to learn more about me, go see my creator's homepage right here --> https://food-slacking.herokuapp.com :squirrel:\nAnd most importantly, don't hesitate to send him some support ! He looks like a nice guy after all... :frog:"
+    if event_type == "message" and 'text' in slack_event['event']:
+        instructions = slack_event['event']['text'].split(' ')
 
-            food_slacking_bot.post_message(team, channel, message)
-            return make_response("Food Slacking Bot posting message", 200,)
+        if not 'bot_id' in slack_event['event']: # Don't allow the bot to respond to itself
 
-        # If the bot is direclty mentionned
-        elif 'text' in slack_event['event'] and food_slacking_bot.getAtBot() in slack_event['event']['text']:
-            channel = slack_event['event']['channel']
-            food_slacking_bot.display_providers(team, channel)
-            return make_response("Food Slacking Bot handling command", 200,)
+            if food_slacking_bot.getAtBot() in instructions and 'help' in instructions: # If help specifically requested
+                channel = slack_event['event']['channel']
+                message = "If you feel lost, don't panic :bomb: ! Just mention my name and let the magic happen :tophat:\n\nIf you'd like to learn more about me, go see my creator's homepage right here --> https://food-slacking.herokuapp.com :squirrel:\nAnd most importantly, don't hesitate to send him some support ! He looks like a nice guy after all... :frog:"
+                food_slacking_bot.post_message(team, channel, message)
+                return make_response("Food Slacking Bot posting message", 200)
+
+            elif food_slacking_bot.getAtBot() in instructions: # Post food providers in every other cases
+                channel = slack_event['event']['channel']
+                food_slacking_bot.display_providers(team, channel)
+                return make_response("Food Slacking Bot handling command", 200,)
 
     # ============= Event Type Not Found! ============= #
     # If the event_type does not have a handler
