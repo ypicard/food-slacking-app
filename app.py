@@ -21,7 +21,6 @@ app = create_app()
 def _event_handler(event_type, slack_event):
     # A helper function that routes events from Slack to our Bot by event type
     # and subtype.
-
     team = slack_event["team_id"]
     food_slacking_bot.authToCorrectTeam(team)
     
@@ -83,6 +82,7 @@ def hears():
     handler helper function to route events to our Bot.
     """
     slack_event = json.loads(request.data)
+
     # ============= Slack URL Verification ============ #
     if "challenge" in slack_event:
         return make_response(slack_event["challenge"], 200, {"content_type":

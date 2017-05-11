@@ -8,6 +8,7 @@ from app_factory import mongo
 from pprint import pprint
 import frichti_api
 import popchef_api
+import pickles_api
 import urllib
 import copy
 import logging
@@ -60,6 +61,15 @@ PROVIDER_CHOICES = [{
     'website_url': "https://deliveroo.fr/fr/",
     'message': 'Allez sur le site !',
     'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
+},
+    {
+    'tag': 'pickles',
+    'name': 'Pickles',
+    'color': '#6da440',
+    'has_api': True,
+    'website_url': "https://www.pickles.fr/",
+    'message': 'Montre moi le menu !',
+    'thumb_url': "https://media-cdn.tripadvisor.com/media/photo-s/0e/30/2a/fe/logo.jpg"
 }]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
@@ -261,10 +271,14 @@ class FoodSlackingBot(object):
         #         }
         #     ]
         # }
+
         provider_URLS = self.get_provider_URLS(provider)
 
-        pluralized_category = propositions[0]['category_label'] if propositions[0][
-            'category_label'].strip()[-1] == 's' else propositions[0]['category_label'] + 's'
+        if propositions[0]['category_label'].strip()[-1] in ['s', '!']:
+            pluralized_category = propositions[0]['category_label']
+        else:
+            propositions[0]['category_label'] + 's'
+
         response = {
             "attachments": [{
                 "author_name": provider.title() + " : " + pluralized_category,
@@ -321,6 +335,12 @@ class FoodSlackingBot(object):
                 "LOGO_URL": popchef_api.POPCHEF_LOGO,
                 "PRODUCT_BASE_URL": popchef_api.POPCHEF_BASE_URL + '/p/'
             }
+        elif provider == 'pickles':
+            return {
+                "BASE_URL": pickles_api.PICKLES_BASE_URL,
+                "LOGO_URL": pickles_api.PICKLES_LOGO,
+                "PRODUCT_BASE_URL": pickles_api.PICKLES_BASE_URL
+            }
 
     def ask(self, provider, query, param1=None):
         response = "Should never happen !"
@@ -341,4 +361,11 @@ class FoodSlackingBot(object):
             elif query == 'propositions':
                 logging.info("postMessage: propositions for " + provider)
                 response = self.format_propositions(provider, response)
+
+        if provider == 'pickles':
+            response = pickles_api.ask_pickles(query, 'only_category')
+            if query == 'menu_categories':
+                logging.info("postMessage: propositions for " + provider)
+                response = self.format_propositions(provider, response)
+
         return response
