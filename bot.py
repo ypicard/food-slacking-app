@@ -278,7 +278,7 @@ class FoodSlackingBot(object):
         if propositions[0]['category_label'].strip()[-1] in ['s', '!']:
             pluralized_category = propositions[0]['category_label']
         else:
-            propositions[0]['category_label'] + 's'
+            pluralized_category = propositions[0]['category_label'] + 's'
 
         response = {
             "attachments": [{
