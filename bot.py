@@ -10,6 +10,7 @@ import frichti_api
 import popchef_api
 import pickles_api
 import urllib
+import utils
 import copy
 import logging
 from random import shuffle
@@ -302,7 +303,7 @@ class FoodSlackingBot(object):
                 }
             ],
             "thumb_url": "",
-            "color": "#7CD197"
+            "color": None
         }
 
         for proposition in propositions:
@@ -316,6 +317,7 @@ class FoodSlackingBot(object):
             new_attachment['fields'][1][
                 'title'] = "Prix : " + str(proposition['price']) + " €"
             new_attachment['thumb_url'] = proposition['image']['url']
+            new_attachment['color'] = utils.random_color()
 
             response['attachments'].append(new_attachment)
 
