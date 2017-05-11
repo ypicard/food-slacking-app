@@ -12,6 +12,7 @@ At the moment, the only supported providers are :
   - Uber Eats
   - Deliveroo
   - Foodora 
+  - Pickles
 
 New ones will come quickly, be assured :)
 
@@ -29,6 +30,7 @@ Just follow the instructions provided by the **Add to Slack** button :
   - **May 2nd 2017** : Add Popchef support
   - **May 6th 2017** : Add UberEats, Deliveroo, Foodora (and more generally, add support for non-api based providers)
   - **May 7th 2017** : Build a nice website with a nice UI : https://food-slacking.herokuapp.com
+  - **May 11th 2017** : Add Pickles support
 
 ### Development
 
@@ -37,7 +39,7 @@ If you want to help me grow this bot, ping me and I'll do a quick guide on how t
 ### Todos
 
  - Add a return button in each menu
- - Add Chaud chaud chaud, Pickles, FoodCheri
+ - Add Chaud chaud chaud, FoodCheri
 
 License
 ----
