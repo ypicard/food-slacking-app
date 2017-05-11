@@ -37,7 +37,7 @@ If you want to help me grow this bot, ping me and I'll do a quick guide on how t
 ### Todos
 
  - Add a return button in each menu
- - Add Chaud chaud chaud, Pickles, FoodCheri
+ - Add Chaud chaud chaud, Pickles, FoodCheri, Nestor
 
 License
 ----
