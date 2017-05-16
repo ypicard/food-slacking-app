@@ -7,6 +7,7 @@ import json
 from app_factory import mongo
 from pprint import pprint
 import frichti_api
+import nestor_api
 import popchef_api
 import pickles_api
 import urllib
@@ -71,6 +72,15 @@ PROVIDER_CHOICES = [{
     'website_url': "https://www.pickles.fr/",
     'message': 'Montre moi le menu !',
     'thumb_url': "https://media-cdn.tripadvisor.com/media/photo-s/0e/30/2a/fe/logo.jpg"
+},
+{
+    'tag': 'nestor',
+    'name': 'Nestor',
+    'color': '#ef6537',
+    'has_api': True,
+    'website_url': "https://www.nestorparis.com/",
+    'message': 'Montre moi le menu !',
+    'thumb_url': "https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAd9AAAAJDg4ZDQ2ZTg4LTM4OGMtNDZiYi1iNTRhLWNkNzcyNTc5YjkzNA.png"
 }]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
@@ -308,7 +318,6 @@ class FoodSlackingBot(object):
 
         for proposition in propositions:
             new_attachment = copy.deepcopy(attachment_template)
-
             new_attachment['title'] = proposition['title']
             new_attachment[
                 'title_link'] = provider_URLS['PRODUCT_BASE_URL'] + proposition['productId']
@@ -316,6 +325,8 @@ class FoodSlackingBot(object):
                 'value'] = proposition['shortDescription']
             new_attachment['fields'][1][
                 'title'] = "Prix : " + str(proposition['price']) + " €"
+            if provider == 'nestor':
+                new_attachment['fields'][1]['title'] += " (Menu complet)"
             new_attachment['thumb_url'] = proposition['image']['url']
             new_attachment['color'] = utils.random_color()
 
@@ -343,6 +354,12 @@ class FoodSlackingBot(object):
                 "LOGO_URL": pickles_api.PICKLES_LOGO,
                 "PRODUCT_BASE_URL": pickles_api.PICKLES_BASE_URL
             }
+        elif provider == 'nestor':
+            return {
+                "BASE_URL": nestor_api.NESTOR_BASE_URL,
+                "LOGO_URL": nestor_api.NESTOR_LOGO,
+                "PRODUCT_BASE_URL": nestor_api.NESTOR_BASE_URL
+            }
 
     def ask(self, provider, query, param1=None):
         response = "Should never happen !"
@@ -355,7 +372,7 @@ class FoodSlackingBot(object):
                 logging.info("postMessage: propositions for " + provider)
                 response = self.format_propositions(provider, response)
 
-        if provider == 'popchef':
+        elif provider == 'popchef':
             response = popchef_api.ask_popchef(query, param1)
             if query == 'menu_categories':
                 logging.info("postMessage: menu_categories for " + provider)
@@ -364,8 +381,14 @@ class FoodSlackingBot(object):
                 logging.info("postMessage: propositions for " + provider)
                 response = self.format_propositions(provider, response)
 
-        if provider == 'pickles':
+        elif provider == 'pickles':
             response = pickles_api.ask_pickles(query, 'only_category')
+            if query == 'menu_categories':
+                logging.info("postMessage: propositions for " + provider)
+                response = self.format_propositions(provider, response)
+
+        elif provider == 'nestor':
+            response = nestor_api.ask_nestor(query, 'only_category')
             if query == 'menu_categories':
                 logging.info("postMessage: propositions for " + provider)
                 response = self.format_propositions(provider, response)
