@@ -64,15 +64,15 @@ PROVIDER_CHOICES = [{
     'message': 'Allez sur le site !',
     'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
 },
-    {
-    'tag': 'pickles',
-    'name': 'Pickles',
-    'color': '#6da440',
-    'has_api': True,
-    'website_url': "https://www.pickles.fr/",
-    'message': 'Montre moi le menu !',
-    'thumb_url': "https://media-cdn.tripadvisor.com/media/photo-s/0e/30/2a/fe/logo.jpg"
-},
+#     {
+#     'tag': 'pickles',
+#     'name': 'Pickles',
+#     'color': '#6da440',
+#     'has_api': True,
+#     'website_url': "https://www.pickles.fr/",
+#     'message': 'Montre moi le menu !',
+#     'thumb_url': "https://media-cdn.tripadvisor.com/media/photo-s/0e/30/2a/fe/logo.jpg"
+# },
 {
     'tag': 'nestor',
     'name': 'Nestor',
