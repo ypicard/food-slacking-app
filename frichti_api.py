@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 MENUS_DIRECTORY = './menus/frichti'
 
-RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw'
-CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom'
+RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw/'
+CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom/'
 
 FRICHTI_REQUEST_URL = "https://api-gateway.frichti.co/kitchens/7/menu"
 # TODO : The kitchen id (number before menu iun url) seems to change the

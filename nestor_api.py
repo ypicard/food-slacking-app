@@ -16,8 +16,8 @@ logger = logging.getLogger(__name__)
 
 MENUS_DIRECTORY = './menus/nestor'
 
-RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw'
-CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom'
+RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw/'
+CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom/'
 
 NESTOR_REQUEST_URL = "https://api-nestor.com/menu/75001"
 # TODO : The kitchen id (number before menu iun url) seems to change the

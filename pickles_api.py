@@ -16,8 +16,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 MENUS_DIRECTORY = './menus/pickles'
-RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw'
-CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom'
+RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw/'
+CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom/'
 
 PICKLES_REQUEST_URL = "https://www.pickles.fr/"
 PICKLES_BASE_URL = "https://www.pickles.fr/"
