@@ -6,13 +6,14 @@ Website : https://food-slacking.herokuapp.com
 
 I created this simple slack app/bot to get a daily reminder to check what's for lunch on the different food providers' websites.
 
-At the moment, the only supported providers are :
+At the moment, the supported providers are :
   - Frichti
   - Popchef
   - Uber Eats
   - Deliveroo
   - Foodora 
-  - Pickles
+  - Pickles (temporarilly hidden)
+  - Nestor
 
 New ones will come quickly, be assured :)
 
@@ -31,6 +32,7 @@ Just follow the instructions provided by the **Add to Slack** button :
   - **May 6th 2017** : Add UberEats, Deliveroo, Foodora (and more generally, add support for non-api based providers)
   - **May 7th 2017** : Build a nice website with a nice UI : https://food-slacking.herokuapp.com
   - **May 11th 2017** : Add Pickles support
+  - **May 17th 2017** : Add Nestor support - Temporarily hide Pickles (they remodelled their whole website...)
 
 ### Development
 
@@ -39,7 +41,8 @@ If you want to help me grow this bot, ping me and I'll do a quick guide on how t
 ### Todos
 
  - Add a return button in each menu
- - Add Chaud chaud chaud, FoodCheri, Nestor
+ - Add Chaud chaud chaud, FoodCheri
+ - Fix Pickles support
 
 License
 ----

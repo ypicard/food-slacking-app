@@ -91,7 +91,7 @@ def format_raw_menu(raw_menu):
         'title': todays_menu['entree']['name'],
         'price': todays_menu['price']/100,
         'productType': 'entree',
-        'productId': todays_menu['entree']['_id'],
+        'productId': '',
         'shortDescription': "Entrée",
         'description': todays_menu['entree']['ingredients'],
         'image': {
@@ -105,7 +105,7 @@ def format_raw_menu(raw_menu):
         'title': todays_menu['dish']['name'],
         'price': todays_menu['price']/100,
         'productType': 'dish',
-        'productId': todays_menu['dish']['_id'],
+        'productId': '',
         'shortDescription': "Plat principal",
         'description': todays_menu['dish']['ingredients'],
         'image': {
@@ -119,7 +119,7 @@ def format_raw_menu(raw_menu):
         'title': todays_menu['dessert']['name'],
         'price': todays_menu['price']/100,
         'productType': 'dessert',
-        'productId': todays_menu['dessert']['_id'],
+        'productId': '',
         'shortDescription': "Dessert",
         'description': todays_menu['dessert']['ingredients'],
         'image': {
