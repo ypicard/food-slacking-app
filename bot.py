@@ -285,7 +285,7 @@ class FoodSlackingBot(object):
 
         provider_URLS = self.get_provider_URLS(provider)
 
-        if propositions[0]['category_label'].strip()[-1] in ['s', '!']:
+        if propositions[0]['category_label'].strip()[-1] in ['s', '!', ')']:
             pluralized_category = propositions[0]['category_label']
         else:
             pluralized_category = propositions[0]['category_label'] + 's'

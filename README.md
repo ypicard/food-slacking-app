@@ -12,7 +12,7 @@ At the moment, the supported providers are :
   - Uber Eats
   - Deliveroo
   - Foodora 
-  - Pickles (temporarilly hidden)
+  - Pickles
   - Nestor
 
 New ones will come quickly, be assured :)
@@ -33,6 +33,7 @@ Just follow the instructions provided by the **Add to Slack** button :
   - **May 7th 2017** : Build a nice website with a nice UI : https://food-slacking.herokuapp.com
   - **May 11th 2017** : Add Pickles support
   - **May 17th 2017** : Add Nestor support - Temporarily hide Pickles (they remodelled their whole website...)
+  - **May 18th 2017** : Fix Pickles support - Add daily task to fetch and save all menus at 5am
 
 ### Development
 
@@ -42,7 +43,7 @@ If you want to help me grow this bot, ping me and I'll do a quick guide on how t
 
  - Add a return button in each menu
  - Add Chaud chaud chaud, FoodCheri
- - Fix Pickles support
+ - Move send_daily_notifications.py up one level and make it use the bot script to post
 
 License
 ----
