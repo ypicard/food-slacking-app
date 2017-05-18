@@ -2,6 +2,7 @@ appdirs==1.4.3
 backports.ssl-match-hostname==3.5.0.1
 beautifulsoup4==4.6.0
 click==6.6
+dateparser==0.6.0
 Flask==0.11.1
 Flask-PyMongo==0.4.1
 gunicorn==19.7.1
@@ -12,9 +13,15 @@ packaging==16.8
 pyaml==16.9.0
 pymongo==3.4.0
 pyparsing==2.2.0
+python-dateutil==2.6.0
+pytz==2017.2
 PyYAML==3.12
+regex==2017.4.29
 requests==2.11.1
+ruamel.ordereddict==0.4.9
+ruamel.yaml==0.14.12
 six==1.10.0
 slackclient==1.0.2
+tzlocal==1.4
 websocket-client==0.37.0
 Werkzeug==0.11.11

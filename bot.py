@@ -64,23 +64,23 @@ PROVIDER_CHOICES = [{
     'message': 'Allez sur le site !',
     'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
 },
-#     {
-#     'tag': 'pickles',
-#     'name': 'Pickles',
-#     'color': '#6da440',
-#     'has_api': True,
-#     'website_url': "https://www.pickles.fr/",
-#     'message': 'Montre moi le menu !',
-#     'thumb_url': "https://media-cdn.tripadvisor.com/media/photo-s/0e/30/2a/fe/logo.jpg"
-# },
-{
+    {
+    'tag': 'pickles',
+    'name': 'Pickles',
+    'color': '#6da440',
+    'has_api': True,
+    'website_url': "https://www.pickles.fr/",
+    'message': 'Montre moi le menu !',
+    'thumb_url': pickles_api.PICKLES_LOGO
+},
+    {
     'tag': 'nestor',
     'name': 'Nestor',
     'color': '#ef6537',
     'has_api': True,
     'website_url': "https://www.nestorparis.com/",
     'message': 'Montre moi le menu !',
-    'thumb_url': "https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAd9AAAAJDg4ZDQ2ZTg4LTM4OGMtNDZiYi1iNTRhLWNkNzcyNTc5YjkzNA.png"
+    'thumb_url': nestor_api.NESTOR_LOGO
 }]
 
 # TODO : Ajouter un boutton pour revenir en arriere a chaque etape
@@ -323,8 +323,9 @@ class FoodSlackingBot(object):
                 'title_link'] = provider_URLS['PRODUCT_BASE_URL'] + proposition['productId']
             new_attachment['fields'][0][
                 'value'] = proposition['shortDescription']
-            new_attachment['fields'][1][
-                'title'] = "Prix : " + str(proposition['price']) + " €"
+            if proposition['price']:
+                new_attachment['fields'][1][
+                    'title'] = ("Prix : " + str(proposition['price']) + " €")
             if provider == 'nestor':
                 new_attachment['fields'][1]['title'] += " (Menu complet)"
             new_attachment['thumb_url'] = proposition['image']['url']

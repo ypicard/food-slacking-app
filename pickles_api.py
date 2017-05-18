@@ -6,6 +6,7 @@ import requests
 import json
 import time
 from pprint import pprint
+import dateparser
 from bs4 import BeautifulSoup
 import urllib2
 from pprint import pprint
@@ -19,7 +20,7 @@ MENUS_DIRECTORY = './menus/pickles'
 RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw/'
 CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom/'
 
-PICKLES_REQUEST_URL = "https://www.pickles.fr/"
+PICKLES_REQUEST_URL = "http://www.62degres.com/menu.php"
 PICKLES_BASE_URL = "https://www.pickles.fr/"
 PICKLES_LOGO = "https://media-cdn.tripadvisor.com/media/photo-s/0e/30/2a/fe/logo.jpg"
 
@@ -61,29 +62,40 @@ def fetch_todays_pickles_menu():
     # Request Pickles website to get daily data
     logger.info("Fetching today's data...")
 
-    request = urllib2.urlopen(PICKLES_BASE_URL)
+    request = urllib2.urlopen(PICKLES_REQUEST_URL)
     logger.info("Parsing html with Beautifulsoup...")
     soup = BeautifulSoup(request, "html.parser")
-    menu_dishes = soup.find_all('li', class_='menu-dishe')
+    day_menus = soup.find_all('section', class_='dayMenu')
+
+    for menu in day_menus:
+        date_string = menu.find('h3', class_='sectionTitle').get_text()
+        parsed_date = dateparser.parse(date_string).date()
+        today = dateparser.parse("today").date()
+        if today == parsed_date:
+            todays_menu = menu
+            break
+
 
     custom_menu = {'menu': {},
                    'meal_categories': []}
     only_pickles_category = {'tag': 'only_category',
-                             'label': 'Enjoy !'}
+                             'label': 'Menu du jour :)'}
+    
+    menu_items = todays_menu.find_all('li', class_="dish")
 
     items = []
-    for item in menu_dishes:
+    for item in menu_items:
         new_item = {
             'category_tag': 'only_category',
-            'category_label': 'Enjoy !',
-            'title': item.h3.get_text(),
-            'price':  item.find('sup', class_='currency').get_text()[:-1],
+            'category_label': 'Menu du jour :)',
+            'title': item.h4.get_text(),
+            'price':  '',
             'productType': None,
             'productId': '',
             'shortDescription': None,
             'description': None,
             'image': {
-                'url': item.find('img')['src'],
+                'url': item.img['src'],
                 'id': None
             }
         }
@@ -112,12 +124,11 @@ def get_todays_data():
 
 
 def get_product_url(product_id):
-    return PICKLES_BASE_URL
+    return PICKLES_REQUEST_URL
 
 
 def get_propositions(selected_category):
     menu = get_todays_data()['menu']
-    pprint(menu)
     return [prop for prop in menu[selected_category]]
 
 ##########################################################################
