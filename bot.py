@@ -133,6 +133,7 @@ class FoodSlackingBot(object):
         # To keep track of authorized teams and their associated OAuth tokens,
         # we will save the team ID and bot tokens to the global
         # authed_teams object
+        pprint(auth_response)
         logging.info("Saving new credentials to database :\n  - team_id: " +
                      auth_response["team_id"] + "\n  - team_name: " + auth_response["team_name"])
         mongo.db.credentials.update({
