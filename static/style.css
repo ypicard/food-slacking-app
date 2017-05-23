@@ -43,6 +43,14 @@ body {
     font-size: 24px;
 }
 
+#nb-installed-devices {
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    border-width: 3px;
+    padding: 12px;
+}
+
 .parallax {
     /* Set a specific height */
     /* Create the parallax scrolling effect */
