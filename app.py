@@ -2,13 +2,14 @@
 import json
 import bot
 import os
-from app_factory import *
+from app_factory import create_app, mongo
 import json
 from pprint import pprint
 from flask import request, make_response, render_template, jsonify
 import urlparse
 import frichti_api
 import logging
+import datetime
 
 # Instantiate logger instance
 logging.basicConfig(level=logging.INFO)
@@ -21,8 +22,8 @@ app = create_app()
 def _event_handler(event_type, slack_event):
     # A helper function that routes events from Slack to our Bot by event type
     # and subtype.
-    team = slack_event["team_id"]
-    food_slacking_bot.authToCorrectTeam(team)
+    team_id = slack_event["team_id"]
+    food_slacking_bot.authToCorrectTeam(team_id)
 
     # ================ Message Events =============== #
     if event_type == "message" and 'text' in slack_event['event']:
@@ -34,12 +35,14 @@ def _event_handler(event_type, slack_event):
             if food_slacking_bot.getAtBot() in instructions and 'help' in instructions:  # If help specifically requested
                 channel = slack_event['event']['channel']
                 message = "If you feel lost, don't panic :bomb: ! Just mention my name and let the magic happen :tophat:\n\nIf you'd like to learn more about me, go see my creator's homepage right here --> https://food-slacking.herokuapp.com :squirrel:\nAnd most importantly, don't hesitate to send him some support ! He looks like a nice guy after all... :frog:"
-                food_slacking_bot.post_message(team, channel, message)
+                food_slacking_bot.post_message(team_id, channel, message)
+                update_stats(team_id, 'call', None, 'help')
                 return make_response("Food Slacking Bot posting message", 200)
 
             elif food_slacking_bot.getAtBot() in instructions:  # Post food providers in every other cases
                 channel = slack_event['event']['channel']
-                food_slacking_bot.display_providers(team, channel)
+                food_slacking_bot.display_providers(team_id, channel)
+                update_stats(team_id, 'call', None, 'simple_call')
                 return make_response("Food Slacking Bot handling command", 200,)
 
     # ============= Event Type Not Found! ============= #
@@ -124,12 +127,34 @@ def reacts():
         food_provider_choice = actions[0]['value']
         response = food_slacking_bot.ask(
             food_provider_choice, 'menu_categories')
+
     elif callback_id == 'menu_category_selection':
         provider, category = actions[0]['value'].split('/')
         response = food_slacking_bot.ask(provider, 'propositions', category)
+        update_stats(team_id, 'selection',
+                     provider, category)
 
     return jsonify(response)
 
+
+def update_stats(team_id, type, provider=None, value=None):
+    logging.info("Updating stats :\n\t- team_id=" + str(team_id) + "\n\t- type=" +
+                 type + "\n\t- provider=" + str(provider) + "\n\t- value=" + str(value))
+
+    if type == 'selection':
+        mongo.db.selection_statistics.insert({
+            'team_id': team_id,
+            'provider': provider,
+            'value' : value,
+            'date': datetime.datetime.now()
+        })
+
+    elif type == "call":
+        mongo.db.calls.insert({
+            'team_id': team_id,
+            'date': datetime.datetime.now(),
+            'type': value
+        })
 
 
 if __name__ == '__main__':
