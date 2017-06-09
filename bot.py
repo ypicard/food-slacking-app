@@ -286,6 +286,19 @@ class FoodSlackingBot(object):
 
         provider_URLS = self.get_provider_URLS(provider)
 
+        # If not proposition in the selected category
+        if not propositions:
+            response = {
+                'attachments': [{
+                    'text': "Rien à manger ici aujourd'hui ! Retentez votre chance demain :)",
+                            "author_name": provider.title(),
+                            "author_link": provider_URLS['BASE_URL'],
+                            "author_icon": provider_URLS['LOGO_URL']
+                }]
+            }
+            return response
+
+
         if propositions[0]['category_label'].strip()[-1] in ['s', '!', ')']:
             pluralized_category = propositions[0]['category_label']
         else:

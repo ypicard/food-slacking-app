@@ -80,9 +80,14 @@ def is_today(sample_date):
 def format_raw_menu(raw_menu):
     custom_menu = {'menu': {},
                    'meal_categories': []}
-
-    todays_menu = next(x['menus'][0] for x in raw_menu['menus']
+    try:
+        todays_menu = next(x['menus'][0] for x in raw_menu['menus']
                        if is_today(x['date']))
+    except StopIteration:
+        with open('./menus/empty_menu.json') as f:
+            return json.load(f)
+
+
     meal_category = 'only_category'
     meal_category_label = "Menu du jour !"
     entree = {
@@ -174,7 +179,7 @@ def get_product_url(product_id):
 
 def get_propositions(selected_category):
     menu = get_todays_data()['menu']
-    return [prop for prop in menu[selected_category]]
+    return [prop for prop in menu[selected_category]] if selected_category in menu else None
 
 
 def get_todays_categories():
