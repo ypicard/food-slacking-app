@@ -1,4 +1,4 @@
-/menus
+/menus/*/*
 *.pyc
 data/
 .env
