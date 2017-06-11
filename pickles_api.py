@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 MENUS_DIRECTORY = './menus/pickles'
 RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw/'
 CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom/'
+EMPTY_MENU_FILE = './menus/empty_menu.json'
 
 PICKLES_REQUEST_URL = "http://www.62degres.com/menu.php"
 PICKLES_BASE_URL = "https://www.pickles.fr/"
@@ -44,11 +45,9 @@ def get_todays_custom_file_name():
     return 'pickles-custom-' + time.strftime("%d-%m-%Y") + '.json'
 
 
-def save_todays_menu_custom_format(menu):
+def save_todays_menu_custom_format(custom_menu):
     file_name = get_todays_custom_file_name()
     logger.info("Saving custom file " + file_name + " ...")
-    # Do reformat here
-    custom_menu = fetch_todays_pickles_menu()
     with open(CUSTOM_MENUS_DIRECTORY + file_name, 'w') as file:
         file.write(json.dumps(custom_menu))
 
@@ -68,6 +67,7 @@ def fetch_todays_pickles_menu():
     soup = BeautifulSoup(request, "html.parser")
     day_menus = soup.find_all('section', class_='dayMenu')
 
+    todays_menu = None
     for menu in day_menus:
         date_string = menu.find('h3', class_='sectionTitle').get_text()
         parsed_date = dateparser.parse(date_string).date()
@@ -76,6 +76,10 @@ def fetch_todays_pickles_menu():
             todays_menu = menu
             break
 
+    # Return sample empty file if no menu for today's date has been found
+    if not todays_menu:
+        with open(EMPTY_MENU_FILE) as f:
+            return json.load(f)
 
     custom_menu = {'menu': {},
                    'meal_categories': []}
@@ -130,7 +134,7 @@ def get_product_url(product_id):
 
 def get_propositions(selected_category):
     menu = get_todays_data()['menu']
-    return [prop for prop in menu[selected_category]]
+    return [prop for prop in menu[selected_category]] if selected_category in menu else None
 
 ##########################################################################
 #########################      PUBLIC METHODS       ######################

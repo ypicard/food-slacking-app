@@ -18,6 +18,7 @@ MENUS_DIRECTORY = './menus/nestor'
 
 RAW_MENUS_DIRECTORY = MENUS_DIRECTORY + '/raw/'
 CUSTOM_MENUS_DIRECTORY = MENUS_DIRECTORY + '/custom/'
+EMPTY_MENU_FILE = './menus/empty_menu.json'
 
 NESTOR_REQUEST_URL = "https://api-nestor.com/menu/75001"
 # TODO : The kitchen id (number before menu iun url) seems to change the
@@ -84,7 +85,7 @@ def format_raw_menu(raw_menu):
         todays_menu = next(x['menus'][0] for x in raw_menu['menus']
                        if is_today(x['date']))
     except StopIteration:
-        with open('./menus/empty_menu.json') as f:
+        with open(EMPTY_MENU_FILE) as f:
             return json.load(f)
 
 
