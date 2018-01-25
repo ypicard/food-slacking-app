@@ -56,7 +56,7 @@ def get_todays_custom_file_name():
 def save_todays_menu_raw_format(menu):
     file_name = get_todays_raw_file_name()
     logger.info("Saving raw file " + file_name + " ...")
-    with open(RAW_MENUS_DIRECTORY + file_name, 'w') as file:
+    with open(RAW_MENUS_DIRECTORY + file_name, 'wb') as file:
         file.write(menu.text.encode('utf-8'))
 
 
@@ -94,7 +94,7 @@ def format_raw_menu(raw_menu):
                     'description': old_item['description'],
                     'image': {
                         'url': old_item['images'][0]['fullwidth'],
-                        'id': old_item['images'][0]['id']
+                        # 'id': old_item['images'][0]['id']
                     }
                 }
                 new_category_items.append(new_item)
