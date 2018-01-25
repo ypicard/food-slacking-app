@@ -37,33 +37,33 @@ PROVIDER_CHOICES = [{
 #     'message': 'Voir le menu !',
 #     'thumb_url': popchef_api.POPCHEF_LOGO
 # },
-    {
-    'tag': 'ubereats',
-    'name': 'UberEats',
-    'color': '#1c95a5',
-    'has_api': False,
-    'website_url': "https://www.ubereats.com",
-    'message': 'Allez sur le site !',
-    'thumb_url': "http://cdn2.ubergizmo.com/wp-content/uploads/2016/01/ubereats-logo-640x640.jpg"
-},
-    {
-    'tag': 'foodora',
-    'name': 'Foodora',
-    'color': '#d51965',
-    'has_api': False,
-    'website_url': "https://www.foodora.fr",
-    'message': 'Allez sur le site !',
-    'thumb_url': "http://www.chez-dang.com/wp-content/uploads/2017/02/foodora_web.png"
-},
-    {
-    'tag': 'deliveroo',
-    'name': 'Deliveroo',
-    'color': '#21ccbe',
-    'has_api': False,
-    'website_url': "https://deliveroo.fr/fr/",
-    'message': 'Allez sur le site !',
-    'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
-},
+#     {
+#     'tag': 'ubereats',
+#     'name': 'UberEats',
+#     'color': '#1c95a5',
+#     'has_api': False,
+#     'website_url': "https://www.ubereats.com",
+#     'message': 'Allez sur le site !',
+#     'thumb_url': "http://cdn2.ubergizmo.com/wp-content/uploads/2016/01/ubereats-logo-640x640.jpg"
+# },
+#     {
+#     'tag': 'foodora',
+#     'name': 'Foodora',
+#     'color': '#d51965',
+#     'has_api': False,
+#     'website_url': "https://www.foodora.fr",
+#     'message': 'Allez sur le site !',
+#     'thumb_url': "http://www.chez-dang.com/wp-content/uploads/2017/02/foodora_web.png"
+# },
+#     {
+#     'tag': 'deliveroo',
+#     'name': 'Deliveroo',
+#     'color': '#21ccbe',
+#     'has_api': False,
+#     'website_url': "https://deliveroo.fr/fr/",
+#     'message': 'Allez sur le site !',
+#     'thumb_url': "http://www.underconsideration.com/brandnew/archives/deliveroo_logo.png"
+# },
     {
     'tag': 'pickles',
     'name': 'Pickles',

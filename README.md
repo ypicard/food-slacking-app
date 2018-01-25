@@ -34,7 +34,7 @@ Just follow the instructions provided by the **Add to Slack** button :
   - **May 11th 2017** : Add Pickles support
   - **May 17th 2017** : Add Nestor support - Temporarily hide Pickles (they remodelled their whole website...)
   - **May 18th 2017** : Fix Pickles support - Add daily task to fetch and save all menus at 5am
-  - **Jan 25th 2018** : Fix Frichti & Pickles support, and removed Popchef because they finally added a security token to their API calls. Oh well.
+  - **Jan 25th 2018** : Fix Frichti & Pickles support, and removed Popchef because they finally added a security token to their API calls. Oh well. Also removed only restaurant food delivery services for better clarity.
 
 ### Development
 
