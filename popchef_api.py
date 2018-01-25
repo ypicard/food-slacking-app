@@ -57,7 +57,7 @@ def get_todays_custom_file_name():
 def save_todays_menu_raw_format(menu):
     file_name = get_todays_raw_file_name()
     logger.info("Saving raw file " + file_name + " ...")
-    with open(RAW_MENUS_DIRECTORY + file_name, 'wb') as file:
+    with open(RAW_MENUS_DIRECTORY + file_name, 'w') as file:
         file.write(menu.text.encode('utf-8'))
 
 

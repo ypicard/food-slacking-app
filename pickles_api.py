@@ -9,7 +9,7 @@ import time
 from pprint import pprint
 import dateparser
 from bs4 import BeautifulSoup
-import urllib.request
+import urllib2
 from pprint import pprint
 
 
@@ -62,7 +62,7 @@ def fetch_todays_pickles_menu():
     # Request Pickles website to get daily data
     logger.info("Fetching today's data...")
 
-    request = urllib.request.urlopen(urllib.request.Request(PICKLES_REQUEST_URL))
+    request = urllib2.urlopen(PICKLES_REQUEST_URL)
     logger.info("Parsing html with Beautifulsoup...")
     soup = BeautifulSoup(request, "html.parser")
     day_menus = soup.find_all('section', class_='dayMenu')
