@@ -3,3 +3,6 @@
 data/
 .env
 mongo_set_up.py
+__pycache__
+.vscode
+food-slacking
