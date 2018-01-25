@@ -94,7 +94,7 @@ def format_raw_menu(raw_menu):
                     'description': old_item['description'],
                     'image': {
                         'url': old_item['images'][0]['fullwidth'],
-                        # 'id': old_item['images'][0]['id']
+                        'id': ''
                     }
                 }
                 new_category_items.append(new_item)
