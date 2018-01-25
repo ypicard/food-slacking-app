@@ -25,7 +25,7 @@ Just follow the instructions provided by the **Add to Slack** button :
 ![Screenshot 1](/images/readme-providers.png?raw=true "Choose your daily food provider !")
 ![Screenshot 2](/images/readme-propositions.png?raw=true "Frichti example : propositions for the 'Plats' category")
 
-# New Features!
+# New Features & Updates
 
   - **May 1st 2017** : First "official" release, with basic functionnalities (only Frichti supported, and a daily task called everyday)
   - **May 2nd 2017** : Add Popchef support
@@ -34,6 +34,7 @@ Just follow the instructions provided by the **Add to Slack** button :
   - **May 11th 2017** : Add Pickles support
   - **May 17th 2017** : Add Nestor support - Temporarily hide Pickles (they remodelled their whole website...)
   - **May 18th 2017** : Fix Pickles support - Add daily task to fetch and save all menus at 5am
+  - **Jan 25th 2018** : Fix Frichti & Pickles support, and removed Popchef because they finally added a security token to their API calls. Oh well.
 
 ### Development
 
@@ -44,6 +45,7 @@ If you want to help me grow this bot, ping me and I'll do a quick guide on how t
  - Add a return button in each menu
  - Add Chaud chaud chaud, FoodCheri
  - Move send_daily_notifications.py up one level and make it use the bot script to post
+ - Fix Popchef support by using scrapping instead of their old API, now protected
 
 License
 ----

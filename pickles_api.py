@@ -90,8 +90,6 @@ def fetch_todays_pickles_menu():
 
     items = []
     for item in menu_items:
-        print(item)
-        print(item.find_all('span', class_='dishPrice')[0].text)
         new_item = {
             'category_tag': 'only_category',
             'category_label': 'Menu du jour :)',
