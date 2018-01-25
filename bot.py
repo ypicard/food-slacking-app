@@ -29,14 +29,14 @@ PROVIDER_CHOICES = [{
     'message': 'Voir le menu !',
     'thumb_url': frichti_api.FRICHTI_LOGO
 },
-    {
-    'tag': 'popchef',
-    'name': 'Popchef',
-    'color': '#1ec28e',
-    'has_api': True,
-    'message': 'Voir le menu !',
-    'thumb_url': popchef_api.POPCHEF_LOGO
-},
+#     {
+#     'tag': 'popchef',
+#     'name': 'Popchef',
+#     'color': '#1ec28e',
+#     'has_api': True,
+#     'message': 'Voir le menu !',
+#     'thumb_url': popchef_api.POPCHEF_LOGO
+# },
     {
     'tag': 'ubereats',
     'name': 'UberEats',
